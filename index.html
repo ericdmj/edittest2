@@ -51,10 +51,25 @@
           }  
         };
 
+        // defining popup properties
+        const popupTemplate = {
+            title: "{Name}",
+            content: "{Description}"
+        }
+        const attributes = {
+            Name: "Starboard Cottage",
+            Description: "Stunning cottage overlooking Somes Sound, a beautiful retreat for you and your extended family"
+        }
+
         // creating the point
         const pointGraphic = new Graphic({  
           geometry: point,  
-          symbol: simpleMarkerSymbol  
+          symbol: simpleMarkerSymbol,
+
+          // adding popup properties
+          attributes: attributes,
+          popupTemplate: popupTemplate
+
         });
 
         // add the point to the graphicsLayer
