@@ -14,7 +14,7 @@
     <script>  
       
       // sets the AMD modules
-      require(["esri/config", "esri/Map", "esri/views/MapView","esri/Basemap","esri/widgets/BasemapGallery","esri/widgets/Expand","esri/widgets/Locate","esri/widgets/Search"], function(esriConfig, Map, MapView, Basemap, BasemapGallery, Expand, Locate, Search) {   
+      require(["esri/config", "esri/Map", "esri/views/MapView","esri/Basemap","esri/widgets/BasemapGallery","esri/widgets/Expand","esri/widgets/Locate","esri/widgets/Search","esri/Graphic","esri/layers/GraphicsLayer"], function(esriConfig, Map, MapView, Basemap, BasemapGallery, Expand, Locate, Search, Graphic, GraphicsLayer) {   
         esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurA0NJnJge5mvBzdWw05KZVSc-rH0g5ATkOEM72zKXv9kE7x87aUFvshXADkQU53T8CakkL1B1R2r7I2_9kfS1-XHaF7MVYxQ6VLd5p6tEgpzr75twGhsRz6fK1dSQ2ogOJ1_dHzcsbRTtsGi03Zua1qchYuESnptzJ80EJ1mYqWJo3iuugUMeoYeXbWxZQfRu9bQKBf9ibtwnTc5YG16I7WxJOj3SrYYt-VrPMyknXjtAT1_V1XfrGt6";
         // creates the map and assigns initial basemap
         const map = new Map({
@@ -28,6 +28,36 @@
           zoom: 11, // Zoom level
           container: "viewDiv" // Div element
         });
+
+        // adding the constructor for the graphicslayer
+        const graphicsLayer = new GraphicsLayer();  
+        map.add(graphicsLayer);
+
+        // defining the geometry of the point
+        const point = { //Create a point
+          type: "point",  
+          longitude: -68.321218,    //long lat of vacation house for October 2024
+          latitude: 44.339129
+        };
+
+        // defining the marker style
+        const simpleMarkerSymbol = {  
+          type: "simple-marker",  
+          color: [0, 0, 139],  // Color of blues rock
+          outline: {  
+            color: [255, 255, 255], // White  
+            width: 1
+          }  
+        };
+
+        // creating the point
+        const pointGraphic = new Graphic({  
+          geometry: point,  
+          symbol: simpleMarkerSymbol  
+        });
+
+        // add the point to the graphicsLayer
+        graphicsLayer.add(pointGraphic);
         
         // creates the search box
         const searchWidget = new Search({
