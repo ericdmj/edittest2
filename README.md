@@ -1,2 +1,2 @@
-# esrijs
-My first Esri JS map
+# agol
+Using ESRI JS to access ArcGIS Online data
