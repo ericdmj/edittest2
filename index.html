@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hello, Map!</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device width,inital-scale=1">
+    <meta name="description" content="" />
+
+    <!-- Calls for the ArcGIS API's CSS file and JS library. -->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.25/"></script>
+
+    <!-- Adding the modules needed for a full-screen map app -->
+    <script>  
+      
+      // sets the AMD modules
+      require(["esri/config", "esri/Map", "esri/views/MapView","esri/Basemap","esri/widgets/BasemapGallery","esri/widgets/Expand","esri/widgets/Locate","esri/widgets/Search"], function(esriConfig, Map, MapView, Basemap, BasemapGallery, Expand, Locate, Search) {   
+        esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurA0NJnJge5mvBzdWw05KZVSc-rH0g5ATkOEM72zKXv9kE7x87aUFvshXADkQU53T8CakkL1B1R2r7I2_9kfS1-XHaF7MVYxQ6VLd5p6tEgpzr75twGhsRz6fK1dSQ2ogOJ1_dHzcsbRTtsGi03Zua1qchYuESnptzJ80EJ1mYqWJo3iuugUMeoYeXbWxZQfRu9bQKBf9ibtwnTc5YG16I7WxJOj3SrYYt-VrPMyknXjtAT1_V1XfrGt6";
+        // creates the map and assigns initial basemap
+        const map = new Map({
+          basemap: "arcgis-oceans" // Basemap layer service 
+        });
+
+        // sets center point (via long and lat) and zoom level
+        const view = new MapView({
+          map: map,
+          center: [-68.3, 44.33], // Longitude, latitude
+          zoom: 11, // Zoom level
+          container: "viewDiv" // Div element
+        });
+        
+        // creates the search box
+        const searchWidget = new Search({
+          view: view
+        });
+        // Adds the search widget below other elements in
+        // the top left corner of the view
+        view.ui.add(searchWidget, {
+          position: "top-right",
+          index: 2
+        });
+
+        // Custom Basemap List
+        const customBasemaps = [
+            new Basemap({
+                portalItem: {
+                    id: "67ab7f7c535c4687b6518e6d2343e8a2"  // Ocean Basemap ID
+                },
+                thumbnailUrl: "https://www.arcgis.com/sharing/rest/content/items/67ab7f7c535c4687b6518e6d2343e8a2/info/thumbnail/thumbnail1561651100093.jpeg" // Correct URL for thumbnail
+            }),
+            new Basemap({
+                portalItem: {
+                    id: "826498a48bd0424f9c9315214f2165d4"  // Colored Pencil Basemap ID
+                },
+                thumbnailUrl: "https://www.arcgis.com/sharing/rest/content/items/826498a48bd0424f9c9315214f2165d4/info/thumbnail/thumbnail1580490854424.jpeg"
+            }),
+            new Basemap({
+                portalItem: {
+                    id: "f35ef07c9ed24020aadd65c8a65d3754"  // Modern Antique Basemap ID
+                },
+                thumbnailUrl: "https://www.arcgis.com/sharing/rest/content/items/f35ef07c9ed24020aadd65c8a65d3754/info/thumbnail/thumbnail1584383047375.jpeg"
+            }),
+            new Basemap({
+                portalItem: {
+                    id: "867895a71a1840399476fc717e76bb43"  // Mid-Century Basemap ID
+                },
+                thumbnailUrl: "https://www.arcgis.com/sharing/rest/content/items/867895a71a1840399476fc717e76bb43/info/thumbnail/thumbnail1563382006810.jpeg"
+            }),
+            new Basemap({
+                portalItem: {
+                    id: "75a3ce8990674a5ebd5b9ab66bdab893"  // Newspaper Basemap ID
+                },
+                thumbnailUrl: "https://www.arcgis.com/sharing/rest/content/items/75a3ce8990674a5ebd5b9ab66bdab893/info/thumbnail/thumbnail1563382193586.jpeg"
+            })
+        ];
+
+        // builds basemap gallery using custom basemaps
+        const basemapGallery = new BasemapGallery({
+          view: view,
+          source: customBasemaps
+          // source: [Basemap.fromId("arcgis-oceans"),Basemap.fromId("arcgis-colored-pencil"),Basemap.fromId("arcgis-modern-antique"),Basemap.fromId("arcgis-midcentury"),Basemap.fromId("arcgis-newspaper")] // autocasts to LocalBasemapsSource
+        });
+
+        // Create an Expand instance for the basemap gallery and set the content
+        // property to the DOM node of the basemap gallery widget
+        const bgExpand = new Expand({
+          view: view,
+          content: basemapGallery
+        });
+
+        // Add the expand instance to the ui
+        view.ui.add(bgExpand, "top-right");
+
+        // create the locate button
+        const locateBtn = new Locate({
+          view: view
+        });
+
+        // Add the locate widget to the top left corner of the view
+        view.ui.add(locateBtn, {
+          position: "top-left"
+        });
+
+      });  
+
+     </script>
+
+    <!-- CSS to make a full-screen map -->
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style> 
+  </head>
+  <body>
+
+    <!-- The div to display the map -->
+    <div id="viewDiv"></div> 
+
+  </body>
+</html>
