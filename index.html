@@ -75,27 +75,88 @@
         // add the point to the graphicsLayer
         graphicsLayer.add(pointGraphic);
 
-        // 2D polyline with to paths with m-values (note that the 2nd path does not have m-values defined)
-        const paths = [
-        [  // first path
-          [-97.06138,32.837,5],
-          [-97.06133,32.836,6],
-          [-97.06124,32.834,7]
-        ], [  // second path
-          [-97.06326,32.759],
-          [-97.06298,32.755]
-        ]
-        ];
+        // First create a line geometry (this is the Keystone pipeline)
+        const polyline = {
+          type: "polyline", // autocasts as new Polyline()
+          paths: [[-111.3, 52.68], [-98, 49.5], [-93.94, 29.89]]
+        };
 
-        const line = new Polyline({
-          hasZ: false,
-          hasM: true,
-          paths: paths,
-          spatialReference: { wkid: 4326 }
+        // Create a symbol for drawing the line
+        const lineSymbol = {
+          type: "simple-line", // autocasts as SimpleLineSymbol()
+          color: [226, 119, 40],
+          width: 4
+        };
+
+        // Create an object for storing attributes related to the line
+        const lineAtt = {
+          Name: "Keystone Pipeline",
+          Owner: "TransCanada",
+          Length: "3,456 km"
+        };
+
+        /*******************************************
+         * Create a new graphic and add the geometry,
+         * symbol, and attributes to it. You may also
+         * add a simple PopupTemplate to the graphic.
+         * This allows users to view the graphic's
+         * attributes when it is clicked.
+         ******************************************/
+         const polylineGraphic = new Graphic({
+          geometry: polyline,
+          symbol: lineSymbol,
+          attributes: lineAtt,
+          popupTemplate: {
+            // autocasts as new PopupTemplate()
+            title: "{Name}",
+            content: [
+              {
+                type: "fields",
+                fieldInfos: [
+                  {
+                    fieldName: "Name"
+                  },
+                  {
+                    fieldName: "Owner"
+                  },
+                  {
+                    fieldName: "Length"
+                  }
+                ]
+              }
+            ]
+          }
         });
 
-        // add the line to the graphicsLayer
-        graphicsLayer.add(line);
+        /***************************
+         * Create a polygon graphic
+         ***************************/
+
+        // Create a polygon geometry
+        const polygon = {
+          type: "polygon", // autocasts as new Polygon()
+          rings: [[-64.78, 32.3], [-66.07, 18.45], [-80.21, 25.78], [-64.78, 32.3]]
+        };
+
+        // Create a symbol for rendering the graphic
+        const fillSymbol = {
+          type: "simple-fill", // autocasts as new SimpleFillSymbol()
+          color: [227, 139, 79, 0.8],
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            color: [255, 255, 255],
+            width: 1
+          }
+        };
+
+        // Add the geometry and symbol to a new graphic
+        const polygonGraphic = new Graphic({
+          geometry: polygon,
+          symbol: fillSymbol
+        });
+
+        // Add the graphics to the view's graphics layer
+        view.graphics.addMany([polylineGraphic, polygonGraphic]);
         
         // creates the search box
         const searchWidget = new Search({
