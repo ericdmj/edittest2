@@ -211,6 +211,50 @@
 
         // Adding the feature layer to the map
         map.add(airportLayer);
+
+        // Setting up the icon
+        const heliportRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https://ericdmj.github.io/agol/heliport.png",
+          "width": "18px",
+          "height": "18px"
+        }
+      }
+        
+        //const to make the airport labels
+        const heliportLabels = {
+          symbol: {
+            type: "text",
+            color: "#FFFFFF",
+            haloColor: "#2c5f34",
+            haloSize: "1px",
+            font: {
+              size: "12px",
+              family: "Noto Sans",
+              style: "italic",
+              weight: "normal"
+            }
+          },
+          labelPlacement: "above-center",
+          labelExpressionInfo: {
+            expression: "$feature.Fac_Name"
+          }
+        };
+      
+        // Adding the constructor for the feature layer
+        const heliportLayer = new FeatureLayer({
+          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_EJ/FeatureServer",
+          renderer: heliportRenderer, // Calling the icon
+          definitionExpression: "Fac_Type = 'HELIPORT'", //adding sql to filter for airports
+
+          labelingInfo: [heliportLabels] //adding the labels
+
+        });
+
+        // Adding the feature layer to the map
+        map.add(heliportLayer);
         
         // creates the search box
         const searchWidget = new Search({
