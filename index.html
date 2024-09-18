@@ -167,6 +167,25 @@
 
         // Adding the feature layer to the map
         map.add(photosLayer);
+
+        // Define a pop-up for photoLayer
+        const popupAirport = {
+          "title": "<span style='font-family: Garamond; color: #2c5f34'>{Title}</span>",
+          "content": "<span style='font-family: Garamond; font-size: 14px; line-height: 150%;'><b>Description:</b> {Description}<br><b>Project:</b> {ProjectName}<br><b>Date taken:</b> {DateTakenExact}<br><b>Photographer:</b> {Photographer}<br><br><b>&nbsp;</b> {DigitalMainePreview}<br></span>"
+        }
+        
+        // Adding the constructor for the feature layer
+        const airportsLayer = new FeatureLayer({
+          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_EJ/FeatureServer",
+
+          //adding the popup here
+          outFields: ["Title","DateTakenExact","DigitalMainePreview"],
+          popupTemplate: popupAirport
+
+        });
+
+        // Adding the feature layer to the map
+        map.add(airportsLayer);
         
         // creates the search box
         const searchWidget = new Search({
