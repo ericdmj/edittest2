@@ -14,7 +14,7 @@
     <script>  
       
       // sets the AMD modules
-      require(["esri/config", "esri/Map", "esri/views/MapView","esri/Basemap","esri/widgets/BasemapGallery","esri/widgets/Expand","esri/widgets/Locate","esri/widgets/Search","esri/Graphic","esri/layers/GraphicsLayer","esri/geometry/Polyline","esri/geometry/Polygon"], function(esriConfig, Map, MapView, Basemap, BasemapGallery, Expand, Locate, Search, Graphic, GraphicsLayer, Polyline, Polygon) {   
+      require(["esri/config", "esri/Map", "esri/views/MapView","esri/Basemap","esri/widgets/BasemapGallery","esri/widgets/Expand","esri/widgets/Locate","esri/widgets/Search","esri/Graphic","esri/layers/GraphicsLayer","esri/layers/FeatureLayer"], function(esriConfig, Map, MapView, Basemap, BasemapGallery, Expand, Locate, Search, Graphic, GraphicsLayer, FeatureLayer) {   
         esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurA0NJnJge5mvBzdWw05KZVSc-rH0g5ATkOEM72zKXv9kE7x87aUFvshXADkQU53T8CakkL1B1R2r7I2_9kfS1-XHaF7MVYxQ6VLd5p6tEgpzr75twGhsRz6fK1dSQ2ogOJ1_dHzcsbRTtsGi03Zua1qchYuESnptzJ80EJ1mYqWJo3iuugUMeoYeXbWxZQfRu9bQKBf9ibtwnTc5YG16I7WxJOj3SrYYt-VrPMyknXjtAT1_V1XfrGt6";
         // creates the map and assigns initial basemap
         const map = new Map({
@@ -147,6 +147,14 @@
 
         // Add the graphics to the view's graphics layer
         view.graphics.addMany([polylineGraphic, polygonGraphic]);
+
+        // ADding the constructor for the feature layer
+        const floodLayer = new FeatureLayer({
+          url: "https://services1.arcgis.com/RbMX0mRVOFNTdLzd/ArcGIS/rest/services/MGS_Sea_Level_Rise_Storm_Surge_Scenarios_2018/FeatureServer/1"
+        });
+
+        // Adding the feature layer to the map
+        map.add(floodLayer);
         
         // creates the search box
         const searchWidget = new Search({
