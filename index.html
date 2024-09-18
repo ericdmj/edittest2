@@ -148,9 +148,21 @@
         // Add the graphics to the view's graphics layer
         view.graphics.addMany([polylineGraphic, polygonGraphic]);
 
-        // ADding the constructor for the feature layer
+        
+        // Define a pop-up for photoLayer
+        const popupPhoto = {
+          "title": "Images",
+          "content": "<b>Title:</b> {Title}<br><b>Date taken:</b> {DateTakenExact}<br><b>Image:</b> {DigitalMainePreview}<br>"
+        }
+        
+        // Adding the constructor for the feature layer
         const photosLayer = new FeatureLayer({
-          url: "https://services1.arcgis.com/RbMX0mRVOFNTdLzd/arcgis/rest/services/MGS_Field_Photos_Digital_Maine/FeatureServer"
+          url: "https://services1.arcgis.com/RbMX0mRVOFNTdLzd/arcgis/rest/services/MGS_Field_Photos_Digital_Maine/FeatureServer",
+
+          //adding the popup here
+          outFields: ["Title","DateTakenExact","DigitalMainePreview"],
+          popupTemplate: popupPhoto
+
         });
 
         // Adding the feature layer to the map
