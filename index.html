@@ -188,7 +188,7 @@
         // Adding the constructor for the feature layer
         const airportsLayer = new FeatureLayer({
           url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_EJ/FeatureServer",
-          renderer: airportRenderer // Calling the icon
+          renderer: airportRenderer, // Calling the icon
 
           //adding the airport popup here
           outFields: ["Fac_Name","City","County_Pos"],
