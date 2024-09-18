@@ -149,12 +149,12 @@
         view.graphics.addMany([polylineGraphic, polygonGraphic]);
 
         // ADding the constructor for the feature layer
-        const floodLayer = new FeatureLayer({
-          url: "https://services1.arcgis.com/RbMX0mRVOFNTdLzd/ArcGIS/rest/services/MGS_Sea_Level_Rise_Storm_Surge_Scenarios_2018/FeatureServer/1"
+        const photosLayer = new FeatureLayer({
+          url: "https://services1.arcgis.com/RbMX0mRVOFNTdLzd/arcgis/rest/services/MGS_Field_Photos_Digital_Maine/FeatureServer"
         });
 
         // Adding the feature layer to the map
-        map.add(floodLayer);
+        map.add(photosLayer);
         
         // creates the search box
         const searchWidget = new Search({
