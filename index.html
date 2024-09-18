@@ -14,7 +14,7 @@
     <script>  
       
       // sets the AMD modules
-      require(["esri/config", "esri/Map", "esri/views/MapView","esri/Basemap","esri/widgets/BasemapGallery","esri/widgets/Expand","esri/widgets/Locate","esri/widgets/Search","esri/Graphic","esri/layers/GraphicsLayer"], function(esriConfig, Map, MapView, Basemap, BasemapGallery, Expand, Locate, Search, Graphic, GraphicsLayer) {   
+      require(["esri/config", "esri/Map", "esri/views/MapView","esri/Basemap","esri/widgets/BasemapGallery","esri/widgets/Expand","esri/widgets/Locate","esri/widgets/Search","esri/Graphic","esri/layers/GraphicsLayer","esri/geometry/Polyline"], function(esriConfig, Map, MapView, Basemap, BasemapGallery, Expand, Locate, Search, Graphic, GraphicsLayer, Polyline) {   
         esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurA0NJnJge5mvBzdWw05KZVSc-rH0g5ATkOEM72zKXv9kE7x87aUFvshXADkQU53T8CakkL1B1R2r7I2_9kfS1-XHaF7MVYxQ6VLd5p6tEgpzr75twGhsRz6fK1dSQ2ogOJ1_dHzcsbRTtsGi03Zua1qchYuESnptzJ80EJ1mYqWJo3iuugUMeoYeXbWxZQfRu9bQKBf9ibtwnTc5YG16I7WxJOj3SrYYt-VrPMyknXjtAT1_V1XfrGt6";
         // creates the map and assigns initial basemap
         const map = new Map({
@@ -78,30 +78,24 @@
         // First create a line geometry (this is the Keystone pipeline)
         const polyline = {
           type: "polyline", // autocasts as new Polyline()
-          paths: [[-111.3, 52.68], [-98, 49.5], [-93.94, 29.89]]
+          paths: [[-68.335535, 44.336174], [-68.337364, 44.359077], [-68.330688, 44.368839], [-68.324012, 44.370618], [-68.309393, 44.364358], [-68.307250, 44.363555], [-68.299646, 44.367860], [-68.295716, 44.374609], [-68.284669, 44.380964], [-68.238836, 44.376486], [-68.220468, 44.382989]]
         };
 
         // Create a symbol for drawing the line
         const lineSymbol = {
           type: "simple-line", // autocasts as SimpleLineSymbol()
-          color: [226, 119, 40],
-          width: 4
+          color: [149,6,6], // fall red color
+          width: 3
         };
 
         // Create an object for storing attributes related to the line
         const lineAtt = {
-          Name: "Keystone Pipeline",
-          Owner: "TransCanada",
-          Length: "3,456 km"
+          Name: "Route to Bar Harbor",
+          Mode: "By car",
+          Length: "TBD"
         };
 
-        /*******************************************
-         * Create a new graphic and add the geometry,
-         * symbol, and attributes to it. You may also
-         * add a simple PopupTemplate to the graphic.
-         * This allows users to view the graphic's
-         * attributes when it is clicked.
-         ******************************************/
+        // Create the polyline graphic
          const polylineGraphic = new Graphic({
           geometry: polyline,
           symbol: lineSymbol,
@@ -117,7 +111,7 @@
                     fieldName: "Name"
                   },
                   {
-                    fieldName: "Owner"
+                    fieldName: "Mode"
                   },
                   {
                     fieldName: "Length"
@@ -127,10 +121,6 @@
             ]
           }
         });
-
-        /***************************
-         * Create a polygon graphic
-         ***************************/
 
         // Create a polygon geometry
         const polygon = {
