@@ -75,7 +75,7 @@
         // add the point to the graphicsLayer
         graphicsLayer.add(pointGraphic);
 
-        // First create a line geometry (this is the Keystone pipeline)
+        // First create a line geometry
         const polyline = {
           type: "polyline", // autocasts as new Polyline()
           paths: [[-68.321596, 44.339116], [-68.323310, 44.338122], [-68.326179, 44.339890], [-68.332314, 44.337929], [-68.335535, 44.336174], [-68.337364, 44.359077], [-68.330688, 44.368839], [-68.324012, 44.370618], [-68.309393, 44.364358], [-68.307250, 44.363555], [-68.299646, 44.367860], [-68.295716, 44.374609], [-68.284669, 44.380964], [-68.238836, 44.376486], [-68.220468, 44.382989]]
@@ -125,17 +125,17 @@
         // Create a polygon geometry
         const polygon = {
           type: "polygon", // autocasts as new Polygon()
-          rings: [[-64.78, 32.3], [-66.07, 18.45], [-80.21, 25.78], [-64.78, 32.3]]
+          rings: [[-68.262105, 44.421548], [-68.183449, 44.362914], [-68.230546, 44.300268], [-68.347758, 44.292003], [-68.297813, 44.239284], [-68.336210, 44.221080], [-68.418200, 44.318861], [-68.286842, 44.389253]]
         };
 
         // Create a symbol for rendering the graphic
         const fillSymbol = {
           type: "simple-fill", // autocasts as new SimpleFillSymbol()
-          color: [227, 139, 79, 0.8],
+          color: [44,95,52, 0.5],
           outline: {
             // autocasts as new SimpleLineSymbol()
             color: [255, 255, 255],
-            width: 1
+            width: 2
           }
         };
 
