@@ -169,18 +169,30 @@
         map.add(photosLayer);
 
         // Define a pop-up for photoLayer
-        const popupAirport = {
-          "title": "<span style='font-family: Garamond; color: #2c5f34'>{Title}</span>",
-          "content": "<span style='font-family: Garamond; font-size: 14px; line-height: 150%;'><b>Description:</b> {Description}<br><b>Project:</b> {ProjectName}<br><b>Date taken:</b> {DateTakenExact}<br><b>Photographer:</b> {Photographer}<br><br><b>&nbsp;</b> {DigitalMainePreview}<br></span>"
+        ////const popupAirport = {
+          ////"title": "<span style='font-family: Garamond; color: #2c5f34'>{Title}</span>",
+          ////"content": "<span style='font-family: Garamond; font-size: 14px; line-height: 150%;'><b>Description:</b> {Description}<br><b>Project:</b> {ProjectName}<br><b>Date taken:</b> {DateTakenExact}<br><b>Photographer:</b> {Photographer}<br><br><b>&nbsp;</b> {DigitalMainePreview}<br></span>"
+        ////}
+        
+        // Setting up the icon
+        const airportRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https://ericdmj.github.io/agol/airport.png",
+          "width": "18px",
+          "height": "18px"
         }
+      }
         
         // Adding the constructor for the feature layer
         const airportsLayer = new FeatureLayer({
           url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_EJ/FeatureServer",
+          renderer: airportRenderer // Calling the icon
 
           //adding the popup here
-          outFields: ["Title","DateTakenExact","DigitalMainePreview"],
-          popupTemplate: popupAirport
+          ////outFields: ["Title","DateTakenExact","DigitalMainePreview"],
+          ////popupTemplate: popupAirport
 
         });
 
