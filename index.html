@@ -169,10 +169,10 @@
         map.add(photosLayer);
 
         // Define a pop-up for photoLayer
-        ////const popupAirport = {
-          ////"title": "<span style='font-family: Garamond; color: #2c5f34'>{Title}</span>",
-          ////"content": "<span style='font-family: Garamond; font-size: 14px; line-height: 150%;'><b>Description:</b> {Description}<br><b>Project:</b> {ProjectName}<br><b>Date taken:</b> {DateTakenExact}<br><b>Photographer:</b> {Photographer}<br><br><b>&nbsp;</b> {DigitalMainePreview}<br></span>"
-        ////}
+        const popupAirport = {
+          "title": "<span style='font-family: Garamond; color: #2c5f34'>{Fac_Name}</span>",
+          "content": "<span style='font-family: Garamond; font-size: 14px; line-height: 150%;'><b>Location:</b> {City}, {County_Pos}<br></span>"
+        }
         
         // Setting up the icon
         const airportRenderer = {
@@ -190,9 +190,9 @@
           url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_EJ/FeatureServer",
           renderer: airportRenderer // Calling the icon
 
-          //adding the popup here
-          ////outFields: ["Title","DateTakenExact","DigitalMainePreview"],
-          ////popupTemplate: popupAirport
+          //adding the airport popup here
+          outFields: ["Fac_Name","City","County_Pos"],
+          popupTemplate: popupAirport
 
         });
 
