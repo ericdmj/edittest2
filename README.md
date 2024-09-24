@@ -1,2 +1,2 @@
-# agol
-Using ESRI JS to access ArcGIS Online data
+# agolrest
+Using ESRI REST to edit ArcGIS Online data
