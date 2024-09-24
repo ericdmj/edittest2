@@ -14,7 +14,7 @@
     <script>  
       
       // sets the AMD modules
-      require(["esri/config", "esri/Map", "esri/views/MapView","esri/Basemap","esri/widgets/BasemapGallery","esri/widgets/Expand","esri/widgets/Locate","esri/widgets/Search","esri/Graphic","esri/layers/GraphicsLayer","esri/layers/FeatureLayer"], function(esriConfig, Map, MapView, Basemap, BasemapGallery, Expand, Locate, Search, Graphic, GraphicsLayer, FeatureLayer) {   
+      require(["esri/config", "esri/Map", "esri/views/MapView","esri/Basemap","esri/widgets/BasemapGallery","esri/widgets/Expand","esri/widgets/Locate","esri/widgets/Search","esri/Graphic","esri/layers/GraphicsLayer","esri/layers/FeatureLayer","esri/widgets/Editor"], function(esriConfig, Map, MapView, Basemap, BasemapGallery, Expand, Locate, Search, Graphic, GraphicsLayer, FeatureLayer, Editor) {   
         esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurA0NJnJge5mvBzdWw05KZVSc-rH0g5ATkOEM72zKXv9kE7x87aUFvshXADkQU53T8CakkL1B1R2r7I2_9kfS1-XHaF7MVYxQ6VLd5p6tEgpzr75twGhsRz6fK1dSQ2ogOJ1_dHzcsbRTtsGi03Zua1qchYuESnptzJ80EJ1mYqWJo3iuugUMeoYeXbWxZQfRu9bQKBf9ibtwnTc5YG16I7WxJOj3SrYYt-VrPMyknXjtAT1_V1XfrGt6";
         // creates the map and assigns initial basemap
         const map = new Map({
@@ -328,6 +328,33 @@
         view.ui.add(locateBtn, {
           position: "top-left"
         });
+
+
+        //adding the const for the feature layer
+        const myAirports = new FeatureLayer({
+        url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/My_Airports_EJ/FeatureServer",
+        
+        //adding the popup here
+        outFields: ["AirportCode"],
+
+        });
+
+        //adding the feature layer to the map
+        map.add(myAirports);
+
+        // Set the point layer's LayerInfo
+        const pointInfos = {
+        layer: myAirports
+        }
+
+        // Begin Editor constructor
+        const editor = new Editor({
+        view: view,
+        layerInfos: [pointInfos]
+        }); // End Editor constructor
+
+        // Add the widget to the view
+        view.ui.add(editor, "top-right");
 
       });  
 
