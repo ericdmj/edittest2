@@ -123,6 +123,16 @@
           }
         });
 
+        // defining polygon popup properties
+        const polygonpopupTemplate = {
+            title: "{Name}",
+            content: "{Description}"
+        }
+        const polygonattributes = {
+            Name: "Acadia National Park",
+            Description: "Going to be doing a fair bit of hiking and eating here!"
+        }
+        
         // Create a polygon geometry
         const polygon = {
           type: "polygon", // autocasts as new Polygon()
@@ -132,7 +142,7 @@
         // Create a symbol for rendering the graphic
         const fillSymbol = {
           type: "simple-fill", // autocasts as new SimpleFillSymbol()
-          color: [44,95,52, 0.5],
+          color: [44,95,52, 0.3],
           outline: {
             // autocasts as new SimpleLineSymbol()
             color: [255, 255, 255, 0.5],
@@ -143,7 +153,10 @@
         // Add the geometry and symbol to a new graphic
         const polygonGraphic = new Graphic({
           geometry: polygon,
-          symbol: fillSymbol
+          symbol: fillSymbol,
+          // adding popup properties
+          attributes: polygonattributes,
+          popupTemplate: polygonpopupTemplate
         });
 
         // Add the graphics to the view's graphics layer
