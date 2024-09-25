@@ -333,7 +333,7 @@
           "type": "simple",
           "symbol": {
             "type": "picture-marker",
-            "url": "https://img.icons8.com/ios-glyphs/30/hexagon.png",
+            "url": "https://img.icons8.com/?id=78608&format=png&color=0000AA",
             "width": "30px",
             "height": "30px"
           }
@@ -349,11 +349,10 @@
             font: {
               size: "12px",
               family: "Noto Sans",
-              style: "italic",
               weight: "normal"
             }
           },
-          labelPlacement: "center-right",
+          labelPlacement: "below-center",
           labelExpressionInfo: {
             expression: "$feature.AirportCode"
           }
@@ -370,7 +369,7 @@
         });
 
         //adding the feature layer to the map
-        //map.add(myairportsLayer);
+        map.add(myairportsLayer);
 
         // Set the point layer's LayerInfo
         const pointInfos = {
