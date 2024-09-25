@@ -329,7 +329,7 @@
           position: "top-left"
         });
 
-        const myairportRenderer = {
+        const myairportsRenderer = {
           "type": "simple",
           "symbol": {
             "type": "picture-marker",
@@ -360,21 +360,21 @@
         };
 
         //adding the const for the feature layer
-        const myAirports = new FeatureLayer({
+        const myairportsLayer = new FeatureLayer({
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/My_Airports_EJ/FeatureServer",
         
-        renderer: myairportRenderer, // calling the icon
+        renderer: myairportsRenderer, // calling the icon
 
         labelingInfo: [airportcodeLabels] //adding the labels
 
         });
 
         //adding the feature layer to the map
-        map.add(myAirports);
+        map.add(myairportsLayer);
 
         // Set the point layer's LayerInfo
         const pointInfos = {
-        layer: myAirports
+        layer: myairportsLayer
         }
 
         // Begin Editor constructor
