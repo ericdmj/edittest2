@@ -330,14 +330,34 @@
         });
 
         const myairportRenderer = {
-        "type": "simple",
-        "symbol": {
-          "type": "picture-marker",
-          "url": "https://img.icons8.com/ios-glyphs/30/hexagon.png",
-          "width": "18px",
-          "height": "18px"
+          "type": "simple",
+          "symbol": {
+            "type": "picture-marker",
+            "url": "https://img.icons8.com/ios-glyphs/30/hexagon.png",
+            "width": "24px",
+            "height": "24px"
+          }
         }
-      }
+
+        //const to make the airport code labels
+        const airportcodeLabels = {
+          symbol: {
+            type: "text",
+            color: "#FFFFFF",
+            haloColor: "#AA0000",
+            haloSize: "1px",
+            font: {
+              size: "12px",
+              family: "Noto Sans",
+              style: "italic",
+              weight: "normal"
+            }
+          },
+          labelPlacement: "center-right",
+          labelExpressionInfo: {
+            expression: "$feature.Fac_Name"
+          }
+        };
 
         //adding the const for the feature layer
         const myAirports = new FeatureLayer({
@@ -346,7 +366,9 @@
         //adding the popup here
         outFields: ["AirportCode"],
 
-        renderer: myairportRenderer // calling the icon
+        renderer: myairportRenderer, // calling the icon
+
+        labelingInfo: [airportcodeLabels] //adding the labels
 
         });
 
