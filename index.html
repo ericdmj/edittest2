@@ -355,7 +355,7 @@
           },
           labelPlacement: "center-right",
           labelExpressionInfo: {
-            expression: "$feature.Fac_Name"
+            expression: "$feature.AirportCode"
           }
         };
 
@@ -363,9 +363,6 @@
         const myAirports = new FeatureLayer({
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/My_Airports_EJ/FeatureServer",
         
-        //adding the popup here
-        outFields: ["AirportCode"],
-
         renderer: myairportRenderer, // calling the icon
 
         labelingInfo: [airportcodeLabels] //adding the labels
