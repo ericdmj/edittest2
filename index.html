@@ -387,7 +387,12 @@
 
         // adding a legend
         let legend = new Legend({
-          view: view
+          view: view,
+          // layout that toggles between "stack" and "side-by-side"
+          style = {
+            type: "card",
+            layout: "auto"
+          }
         });
 
         view.ui.add(legend, "bottom-left");
