@@ -35,19 +35,13 @@
   
           view.when(() => {
             const editor = new Editor({
-                view: view,
-                layerInfos: [{
-                    layer: featureLayer, // pass in the feature layer,
-                    formTemplate:  { // autocastable to FormTemplate
-                    elements: [
-                        { // autocastable to FieldElement
-                        type: "field",
-                        fieldName: "CryptidType",
-                        label: "Cryptid Type"
-                        }
-                    ]
+              view: view,
+              visibleElements {
+                    snappingControlsElements: {
+                        featureEnabledToggle: false,
+                        layerList: true
                     }
-                }]
+                }
             });
 
             
