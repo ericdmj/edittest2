@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hello, let's test this 'un!</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device width,inital-scale=1">
+    <meta name="description" content="" />
+
+    <!-- Calls for the ArcGIS API's CSS file and JS library. -->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.30/"></script>
+
+    <!-- Adding the modules needed for a full-screen map app -->
+    <script>
+      require([
+          "esri/WebMap",
+          "esri/views/MapView",
+          "esri/widgets/Editor"
+        ], (
+          WebMap, MapView,
+          Editor
+        ) => {
+  
+          // Create a map from the referenced webmap item id
+          const webmap = new WebMap({
+            portalItem: {
+              id: "b8e79e53e6ef4bb2a40e48a55053b58a"
+            }
+          });
+  
+          const view = new MapView({
+            container: "viewDiv",
+            map: webmap
+          });
+  
+          view.when(() => {
+            const editor = new Editor({
+              view: view
+            });
+  
+            // Add the widget to the view
+            view.ui.add(editor, "top-right");
+          });
+        });
+    </script>
+
+    <!-- CSS to make a full-screen map -->
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style> 
+  </head>
+  <body>
+
+    <!-- The div to display the map -->
+    <div id="viewDiv"></div> 
+
+  </body>
+</html>
