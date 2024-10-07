@@ -29,10 +29,205 @@
           container: "viewDiv" // Div element
         });
 
+        // adding the constructor for the graphicslayer
+        const graphicsLayer = new GraphicsLayer();  
+        map.add(graphicsLayer);
+
+        // defining the geometry of the point
+        const point = { //Create a point
+          type: "point",  
+          longitude: -68.321218,    //long lat of vacation house for October 2024
+          latitude: 44.339129
+        };
+
+        // defining the marker style
+        const simpleMarkerSymbol = {  
+          type: "simple-marker",
+          style: "diamond",  
+          size: "16px",
+          color: [255,179,67],  // Color of fall leaves
+          outline: {  
+            color: [149,6,6], // fall red  
+            width: 1
+          }  
+        };
+
+        // defining popup properties
+        const popupTemplate = {
+            title: "{Name}",
+            content: "{Description}"
+        }
+        const attributes = {
+            Name: "Starboard Cottage",
+            Description: "Stunning cottage overlooking Somes Sound, can't wait to go next month!"
+        }
+
+        // creating the point
+        const pointGraphic = new Graphic({  
+          geometry: point,  
+          symbol: simpleMarkerSymbol,
+
+          // adding popup properties
+          attributes: attributes,
+          popupTemplate: popupTemplate
+
+        });
+
+        // add the point to the graphicsLayer
+        graphicsLayer.add(pointGraphic);
+
+        // First create a line geometry
+        const polyline = {
+          type: "polyline", // autocasts as new Polyline()
+          paths: [[-68.321596, 44.339116], [-68.323310, 44.338122], [-68.326179, 44.339890], [-68.332314, 44.337929], [-68.335535, 44.336174], [-68.337364, 44.359077], [-68.330688, 44.368839], [-68.324012, 44.370618], [-68.309393, 44.364358], [-68.307250, 44.363555], [-68.299646, 44.367860], [-68.295716, 44.374609], [-68.284669, 44.380964], [-68.238836, 44.376486], [-68.220468, 44.382989]]
+        };
+
+        // Create a symbol for drawing the line
+        const lineSymbol = {
+          type: "simple-line", // autocasts as SimpleLineSymbol()
+          color: [149,6,6], // fall red color
+          width: 3
+        };
+
+        // Create an object for storing attributes related to the line
+        const lineAtt = {
+          Name: "Route to Bar Harbor",
+          Mode: "By car",
+          Length: "TBD"
+        };
+
+        // Create the polyline graphic
+         const polylineGraphic = new Graphic({
+          geometry: polyline,
+          symbol: lineSymbol,
+          attributes: lineAtt,
+          popupTemplate: {
+            // autocasts as new PopupTemplate()
+            title: "{Name}",
+            content: [
+              {
+                type: "fields",
+                fieldInfos: [
+                  {
+                    fieldName: "Name"
+                  },
+                  {
+                    fieldName: "Mode"
+                  },
+                  {
+                    fieldName: "Length"
+                  }
+                ]
+              }
+            ]
+          }
+        });
+
+        // defining polygon popup properties
+        const polygonpopupTemplate = {
+            title: "{Name}",
+            content: "{Description}"
+        }
+        const polygonattributes = {
+            Name: "Acadia National Park",
+            Description: "Going to be doing a fair bit of hiking and eating here!"
+        }
         
+        // Create a polygon geometry
+        const polygon = {
+          type: "polygon", // autocasts as new Polygon()
+          rings: [[-68.262105, 44.421548], [-68.183449, 44.362914], [-68.230546, 44.300268], [-68.347758, 44.292003], [-68.297813, 44.239284], [-68.336210, 44.221080], [-68.418200, 44.318861], [-68.286842, 44.389253]]
+        };
+
+        // Create a symbol for rendering the graphic
+        const fillSymbol = {
+          type: "simple-fill", // autocasts as new SimpleFillSymbol()
+          color: [44,95,52, 0.3],
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            color: [255, 255, 255, 0.5],
+            width: 2
+          }
+        };
+
+        // Add the geometry and symbol to a new graphic
+        const polygonGraphic = new Graphic({
+          geometry: polygon,
+          symbol: fillSymbol,
+          // adding popup properties
+          attributes: polygonattributes,
+          popupTemplate: polygonpopupTemplate
+        });
+
+        // Add the graphics to the view's graphics layer
+        view.graphics.addMany([polylineGraphic, polygonGraphic]);
+
+        
+        // Define a pop-up for photoLayer
+        const popupPhoto = {
+          "title": "<span style='font-family: Garamond; color: #2c5f34'>{Title}</span>",
+          "content": "<span style='font-family: Garamond; font-size: 14px; line-height: 150%;'><b>Description:</b> {Description}<br><b>Project:</b> {ProjectName}<br><b>Date taken:</b> {DateTakenExact}<br><b>Photographer:</b> {Photographer}<br><br><b>&nbsp;</b> {DigitalMainePreview}<br></span>"
+        }
+        
+        // Adding the constructor for the feature layer
+        const photosLayer = new FeatureLayer({
+          url: "https://services1.arcgis.com/RbMX0mRVOFNTdLzd/arcgis/rest/services/MGS_Field_Photos_Digital_Maine/FeatureServer",
+
+          //adding the popup here
+          outFields: ["Title","DateTakenExact","DigitalMainePreview"],
+          popupTemplate: popupPhoto
+
+        });
+
+        // Adding the feature layer to the map
+        map.add(photosLayer);
+       
+        // Setting up the icon
+        const airportRenderer = {
+        "type": "simple",
+        "symbol": {
+          "type": "picture-marker",
+          "url": "https://ericdmj.github.io/agol/airport.png",
+          "width": "18px",
+          "height": "18px"
+        }
+      }
+        
+        //const to make the airport labels
+        const airportLabels = {
+          symbol: {
+            type: "text",
+            color: "#FFFFFF",
+            haloColor: "#2c5f34",
+            haloSize: "1px",
+            font: {
+              size: "12px",
+              family: "Noto Sans",
+              style: "italic",
+              weight: "normal"
+            }
+          },
+          labelPlacement: "above-center",
+          labelExpressionInfo: {
+            expression: "$feature.Fac_Name"
+          }
+        };
+      
+        // Adding the constructor for the feature layer
+        const airportLayer = new FeatureLayer({
+          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_EJ/FeatureServer",
+          renderer: airportRenderer, // Calling the icon
+          definitionExpression: "Fac_Type = 'AIRPORT'", //adding sql to filter for airports
+
+          labelingInfo: [airportLabels] //adding the labels
+
+        });
+
+        // Adding the feature layer to the map
+        map.add(airportLayer);
 
         // Setting up the icon
-        const cryptidRenderer = {
+        const heliportRenderer = {
         "type": "simple",
         "symbol": {
           "type": "picture-marker",
@@ -43,7 +238,7 @@
       }
         
         //const to make the heliport labels
-        const cryptidLabels = {
+        const heliportLabels = {
           symbol: {
             type: "text",
             color: "#FFFFFF",
@@ -58,20 +253,22 @@
           },
           labelPlacement: "above-center",
           labelExpressionInfo: {
-            expression: "$feature.CryptidType"
+            expression: "$feature.Fac_Name"
           }
         };
       
         // Adding the constructor for the feature layer
-        const cryptidLayer = new FeatureLayer({
-          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Cryptid_Sighting/FeatureServer",
-          renderer: cryptidRenderer, // Calling the icon
-          labelingInfo: [cryptidLabels] //adding the labels
+        const heliportLayer = new FeatureLayer({
+          url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/US_Airports_EJ/FeatureServer",
+          renderer: heliportRenderer, // Calling the icon
+          definitionExpression: "Fac_Type = 'HELIPORT'", //adding sql to filter for airports
+
+          labelingInfo: [heliportLabels] //adding the labels
 
         });
 
         // Adding the feature layer to the map
-        map.add(cryptidLayer);
+        map.add(heliportLayer);
         
         // creates the search box
         const searchWidget = new Search({
@@ -145,7 +342,6 @@
           position: "top-left"
         });
 
-        /*
         const myairportsRenderer = {
           "type": "simple",
           "symbol": {
@@ -179,7 +375,7 @@
         const myairportsLayer = new FeatureLayer({
         url: "https://services.arcgis.com/HRPe58bUyBqyyiCt/arcgis/rest/services/Cryptid_Sighting/FeatureServer",
         
-        renderer: myairportsRenderer, // calling the icon
+        // renderer: myairportsRenderer, // calling the icon
 
         labelingInfo: [airportcodeLabels] // adding the labels
 
@@ -188,19 +384,15 @@
         //adding the feature layer to the map
         map.add(myairportsLayer);
 
-        */
-
         // Set the point layer's LayerInfo
         const pointInfos = {
-        layer: cryptidLayer
+        layer: myairportsLayer
         }
-
-        
 
         // Begin Editor constructor
         const editor = new Editor({
         view: view,
-        layerInfos: [pointInfos]
+        //layerInfos: [pointInfos]
         }); // End Editor constructor
 
         // Add the widget to the view
