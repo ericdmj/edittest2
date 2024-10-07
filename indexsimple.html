@@ -12,26 +12,21 @@
 
     <!-- Adding the modules needed for a full-screen map app -->
     <script>
-      require([
-          "esri/WebMap",
-          "esri/views/MapView",
-          "esri/widgets/Editor"
-        ], (
-          WebMap, MapView,
-          Editor
-        ) => {
-  
-          // Create a map from the referenced webmap item id
-          const webmap = new WebMap({
-            portalItem: {
-              id: "b8e79e53e6ef4bb2a40e48a55053b58a"
-            }
-          });
-  
-          const view = new MapView({
-            container: "viewDiv",
-            map: webmap
-          });
+      // sets the AMD modules
+      require(["esri/config", "esri/Map", "esri/views/MapView","esri/Basemap","esri/widgets/BasemapGallery","esri/widgets/Expand","esri/widgets/Locate","esri/widgets/Search","esri/Graphic","esri/layers/GraphicsLayer","esri/layers/FeatureLayer","esri/widgets/Editor","esri/widgets/Legend"], function(esriConfig, Map, MapView, Basemap, BasemapGallery, Expand, Locate, Search, Graphic, GraphicsLayer, FeatureLayer, Editor, Legend) {   
+        esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurA0NJnJge5mvBzdWw05KZVSc-rH0g5ATkOEM72zKXv9kE7x87aUFvshXADkQU53T8CakkL1B1R2r7I2_9kfS1-XHaF7MVYxQ6VLd5p6tEgpzr75twGhsRz6fK1dSQ2ogOJ1_dHzcsbRTtsGi03Zua1qchYuESnptzJ80EJ1mYqWJo3iuugUMeoYeXbWxZQfRu9bQKBf9ibtwnTc5YG16I7WxJOj3SrYYt-VrPMyknXjtAT1_V1XfrGt6";
+        // creates the map and assigns initial basemap
+        const map = new Map({
+          basemap: "arcgis-oceans" // Basemap layer service 
+        });
+
+        // sets center point (via long and lat) and zoom level
+        const view = new MapView({
+          map: map,
+          center: [-68.3, 44.33], // Longitude, latitude
+          zoom: 11, // Zoom level
+          container: "viewDiv" // Div element
+        });
   
           view.when(() => {
             const editor = new Editor({
