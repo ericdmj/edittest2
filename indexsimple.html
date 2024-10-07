@@ -35,8 +35,16 @@
   
           view.when(() => {
             const editor = new Editor({
-              view: view
+              view: view,
+              visibleElements: {
+                    snappingControlsElements: {
+                        featureEnabledToggle: false,
+                        layerList: false
+                    }
+                }
             });
+
+            
   
             // Add the widget to the view
             view.ui.add(editor, "top-right");
